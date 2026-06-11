@@ -21,7 +21,8 @@ string[] imagePaths = new string[]
     "6.jpg",
     "7.jpg",
     "8.jpg",
-    "9.jpg"
+    "9.jpg",
+    "400dpi-28x28x-8.png",
 };
 
 foreach (var imagePath in imagePaths)
