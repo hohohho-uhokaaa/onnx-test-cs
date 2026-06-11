@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Program.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.ML.OnnxRuntime;
@@ -29,7 +30,7 @@ foreach (var imagePath in imagePaths)
 {
     // 2. ImageSharpでJPG画像を読み込み、AIの仕様（28x28、背景黒/文字白）に一発変換
     using var image = Image.Load<L8>(imagePath);
-    image.Mutate(x => x.Resize(28, 28).Invert());
+    image.Mutate(x => x.Resize(28, 28).Invert()); // リサイズとインバート処理
 
     // 3. 28x28マトリクス（1次元配列）へピクセル値を0.0〜1.0に正規化して詰め込む
     float[] pixelData = new float[28 * 28];
@@ -38,7 +39,7 @@ foreach (var imagePath in imagePaths)
     {
         for (int y = 0; y < acc.Height; y++)
             foreach (var pixel in acc.GetRowSpan(y))
-                pixelData[idx++] = pixel.PackedValue / 255f;
+                pixelData[idx++] = pixel.PackedValue / 255f; // ピクセル値の正規化
     });
 
     // 4. ONNXの入力プロトコル（[1, 1, 28, 28] の4次元テンサー）に変換
